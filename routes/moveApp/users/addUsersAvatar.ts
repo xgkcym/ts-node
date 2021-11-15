@@ -6,12 +6,13 @@ module.exports = async(req:Request,res:Response)=>{
         uploadDir:path.join(__dirname,'..','..','..','public','moveApp','avatar'),
         keepExtensions:true
     });
+    
     form.parse(req, (err, fields, files:any) => {
         if(files.avatar)  {
             files.avatar.path = files.avatar.path.split('public')[1]
-            res.json(files.avatar)
+            res.json({status:200,file:files.avatar})
         } else{
-            res.send({
+            res.json({
                 status:400,
                 msg:'请求参数错误'
             })

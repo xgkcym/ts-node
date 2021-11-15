@@ -33,6 +33,7 @@ export type UserType = {
   gender?: GerderType,
   city?: string,
   birthday?: string,
+  education?:string,
   // 星座
   constellation?: string,
   // 个性
@@ -50,6 +51,7 @@ export class UserClass {
   gender: GerderType | undefined
   city: string | undefined
   birthday: string | undefined
+  education:string | undefined
   constellation: string | undefined
   individuality: string | undefined
   role?:RoleType | undefined
@@ -63,6 +65,7 @@ export class UserClass {
     this.gender = info.gender
     this.city = info.city
     this.birthday = info.birthday
+    this.education = info.education
     this.constellation = info.constellation
     this.individuality = info.individuality
     this.role = info.role

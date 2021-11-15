@@ -12,9 +12,9 @@ export class Userslike_commentClass {
   comment_id: string  | undefined
 
   constructor(info: Userslike_commentType) {
+    this.id = info.id
     this.uid = info.uid
     this.comment_id = info.comment_id
-    this.id = info.id
   }
 }
 export const Userslike_commentModel = new MysqlClass<Userslike_commentClass>('userslike_comment')

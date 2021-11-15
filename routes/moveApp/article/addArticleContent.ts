@@ -9,7 +9,7 @@ module.exports = async(req:Request,res:Response)=>{
     form.parse(req, (err, fields, files:any) => {
         if(files.content) {
             files.content.path = files.content.path.split('public')[1]
-            res.json(files.content)
+            res.json({status:200,file:files.content})
         } else{
             res.send({
                 status:400,

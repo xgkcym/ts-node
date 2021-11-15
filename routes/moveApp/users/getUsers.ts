@@ -8,5 +8,8 @@ module.exports =  async(req:Request,res:Response)=>{
   //  外键查询
   const data:any = await UserModel.get(userClass)
   const result = data.map((v:any)=>deleteField(v,['password']))
-  res.send(result)
+  res.send({
+    status:200,
+    data:result
+  })
 }

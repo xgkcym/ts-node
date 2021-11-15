@@ -5,6 +5,7 @@ import validateUsers from './validateUsers'
 import { UserClass, UserModel } from "../../../module/tables/users";
 import bcrypt from 'bcrypt'
 module.exports = async (req: Request, res: Response) => {
+    
     try {
       await  validateUsers(req.body)
     } catch (error) {
@@ -14,6 +15,7 @@ module.exports = async (req: Request, res: Response) => {
     const uuid = uuidv4()
     req.body.uid = uuid
     req.body.usable = true
+    req.body.nickname ='新用户'+ req.body.telphone 
     if (!req.body.role) {
         req.body.role = '1'
     }
@@ -24,9 +26,10 @@ module.exports = async (req: Request, res: Response) => {
     }
     const userClass = new UserClass(req.body)
     const result = await UserModel.add(userClass)
+    const data = await UserModel.get(req.body)
     if (result) {
         res.send({
-            mes: '创建用户成功',
+            data,
             status: 200
         })
     } else {

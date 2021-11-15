@@ -11,7 +11,7 @@ export type ArticleType = {
   title?: string,
   article_type?:string,
   content_type?:string,
-  content?:string,
+  content?:any,
   create_time?:string
 }
 
@@ -21,7 +21,7 @@ export class ArticleClass {
   title:string | undefined
   article_type:string | undefined
   content_type : string | undefined
-  content : string | undefined
+  content : any | undefined
   create_time : string | undefined
   constructor(info:ArticleType){
     this.article_id = info.article_id

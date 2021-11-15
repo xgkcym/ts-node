@@ -2,8 +2,8 @@ import { Request, Response } from 'express'
 import { v4 as uuid4 } from 'uuid'
 import { Comment2Class, Comment2Model } from '../../../module/tables/comment2'
 module.exports = async (req: Request, res: Response) => {
-  req.body.comment_id = uuid4()
-  req.body.create_time = new Date().toLocaleString()
+  req.body.comment2_id = uuid4()
+  req.body.create_time = new Date().getTime()
   const commentClass = new Comment2Class(req.body)
   const result = await Comment2Model.add(commentClass)
   if (result) {

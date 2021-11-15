@@ -11,17 +11,14 @@ module.exports  = async(req:any,res:Response)=>{
   if(result.length!=0 && validatePassword){
     let data:any = {}
     for(let i in result[0] ){
-      if(i == 'password'){
-        continue
-      }
       data = {...data,[i]:result[0][i]}
     }
     const token = jsonwebtoken.sign(data,'token')
     data.token = token
     req.session.uid = data.uid
-    res.json(data)
+    res.json({status:200,data})
   }else{
-    res.send({
+    res.json({
       status:400,
       msg:'登录失败'
     })

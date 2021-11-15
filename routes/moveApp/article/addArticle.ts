@@ -3,8 +3,9 @@ import {ArticleClass,ArticleModel} from '../../../module/tables/article'
 import {v4 as uuid4} from 'uuid'
 module.exports =async (req:Request,res:Response)=>{
     req.body.article_id = uuid4()
-    req.body.create_time = new Date().toLocaleString()
+    req.body.create_time = new Date().getTime()
     const articleClass = new ArticleClass(req.body)
+    console.log(articleClass);
     const result = await ArticleModel.add(articleClass)
     if (result) {
         res.send({

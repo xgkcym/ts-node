@@ -62,8 +62,10 @@ export class MysqlClass<T> implements db<T>{
   modify(id: string | number, info: T): any {
     let sql = `update ${this.table} set `
     let sqlArr = []
+    let str = ``
     for (let i in info) {
-      if (i == 'id') {
+      if (this.table == 'users' && i == 'uid' || i == 'id') {
+        str = ` where ${i}='${info[i]}'`
         continue
       }
       if (info[i]) {
@@ -71,7 +73,9 @@ export class MysqlClass<T> implements db<T>{
       }
     }
     sql += sqlArr.join(',')
-    sql += ` where id='${id}'`
+    sql += str
+    const rex = /(\\+)/g
+    sql = sql.replace(rex, '/')
     return new Promise((resovle, reject) => {
       MysqlClass.connection?.query(sql, (err: any, result: any) => {
         if (err) {
@@ -83,9 +87,15 @@ export class MysqlClass<T> implements db<T>{
 
   }
   delete(id: any): any {
-    let sql = `delete from ${this.table} where id='${id}'`
-    console.log(sql);
+    let sql= ''
+    if (typeof id == 'string') {
+       sql = `delete from ${this.table} where id='${id}'`
 
+    }else{
+      for(let i in id){
+         sql = `delete from ${this.table} where ${i}='${id[i]}'`
+      }
+    }
     return new Promise((resovle, reject) => {
       MysqlClass.connection?.query(sql, (err: any, result: any) => {
         if (err) {
@@ -102,7 +112,7 @@ export class MysqlClass<T> implements db<T>{
    * @param fuzzy_query 布尔值---是否模糊查询
    * @returns 
    */
-  get(info: T, join?: Joint[], fuzzy_query = false): Promise<Array<any>> {
+  get(info: T, join?: any[], fuzzy_query = false): Promise<Array<any>> {
     let arr: string[] = [`select * from  ${this.table}`];
     let isWhere: Boolean = true
     let isjoin: Boolean = false
@@ -132,7 +142,7 @@ export class MysqlClass<T> implements db<T>{
           }
         }
       }
-    }else{
+    } else {
       for (let i in info) {
         if (info[i]) {
           if (isWhere) {
@@ -148,8 +158,7 @@ export class MysqlClass<T> implements db<T>{
     if (sql.substr(sql.length - 3) === 'and') {
       sql = sql.substr(0, sql.length - 3)
     }
-    console.log(sql);
-    
+
     return new Promise((resovle, reject) => {
       MysqlClass.connection?.query(sql, (err: any, result: any) => {
         if (err) {
