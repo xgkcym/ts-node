@@ -6,6 +6,8 @@ import { Usersunlike_commentClass, Usersunlike_commentModel } from '../../../mod
 import { Userslike_articleClass, Userslike_articleModel } from '../../../module/tables/userslike_article'
 import { Usersunlike_articleClass, Usersunlike_articleModel } from '../../../module/tables/usersunlike_article'
 import { Violation_articleModel } from '../../../module/tables/violationArticle'
+import fs from 'fs'
+import path from 'path'
 module.exports = async (req: any, res: any) => {
   const data: ArticleType[] = await ArticleModel.get(new ArticleClass(req.query))
   if (data.length != 0) {
@@ -51,6 +53,11 @@ module.exports = async (req: any, res: any) => {
       await Usersunlike_articleModel.delete({ id: usersunlike_articledata[j].id })
     }
     await Violation_articleModel.delete({ article_id: data[0].article_id })
+    if(data[0].content){
+      data[0].content.split(',').map((v:any)=>{
+        fs.unlinkSync(path.join(__dirname,'..','..','..','public','moveApp','article')+'\\'+v.split('article')[1].substr(1))
+      })
+    }
     const result = await ArticleModel.delete({article_id:data[0].article_id })
     if (result) {
       res.send({

@@ -76,6 +76,8 @@ export class MysqlClass<T> implements db<T>{
     sql += str
     const rex = /(\\+)/g
     sql = sql.replace(rex, '/')
+    console.log(sql);
+    
     return new Promise((resovle, reject) => {
       MysqlClass.connection?.query(sql, (err: any, result: any) => {
         if (err) {
@@ -90,7 +92,6 @@ export class MysqlClass<T> implements db<T>{
     let sql= ''
     if (typeof id == 'string') {
        sql = `delete from ${this.table} where id='${id}'`
-
     }else{
       for(let i in id){
          sql = `delete from ${this.table} where ${i}='${id[i]}'`
@@ -158,7 +159,6 @@ export class MysqlClass<T> implements db<T>{
     if (sql.substr(sql.length - 3) === 'and') {
       sql = sql.substr(0, sql.length - 3)
     }
-
     return new Promise((resovle, reject) => {
       MysqlClass.connection?.query(sql, (err: any, result: any) => {
         if (err) {

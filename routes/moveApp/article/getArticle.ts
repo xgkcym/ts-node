@@ -11,7 +11,7 @@ module.exports = async (req: any, res: Response) => {
         }
         article.push(ArticleArr[i]) 
     }
-    let maxpage = Math.ceil(total / pagesize)
+    let maxpage = Math.ceil(total / Number(pagesize))
     res.send({
         total,
         pagesize:Number(pagesize),

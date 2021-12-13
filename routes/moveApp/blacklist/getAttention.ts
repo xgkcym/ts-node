@@ -5,6 +5,9 @@ import deleteField from '../../../util/deleteField'
 module.exports = async (req:any, res:Response) => {
   const blacklistClass = new BlacklistClass({uid:req.query.uid})
   const data:any = await BlacklistModel.get(blacklistClass,[{table:'users',field:BlacklistField.aid}])
-  const result = data.map((v:any)=>deleteField(v,['uid','aid']))
-  res.send(result)
+  // const result = data.map((v:any)=>deleteField(v,['uid','aid']))
+  res.send({
+    status:200,
+    data
+  })
 }

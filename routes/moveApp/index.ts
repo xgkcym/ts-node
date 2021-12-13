@@ -8,15 +8,18 @@ moveAppRoute.post('/login', require('./users/login'))
 moveAppRoute.get('/users', require('./users/getUsers'))
 moveAppRoute.post('/users', require('./users/addUsers'))
 moveAppRoute.get('/attention', require('./attention/getAttention'))
+moveAppRoute.get('/fans', require('./attention/getAttention'))
 moveAppRoute.get('/black', require('./blacklist/getAttention'))
-moveAppRoute.get('/fans', require('./fans/getFans'))
 moveAppRoute.get('/article',require('./article/getArticle'))
-
+moveAppRoute.get('/articles',require('./article/getArticle'))
+moveAppRoute.get('/search/users',require('./search/users'))
+moveAppRoute.get('/search/article',require('./search/article'))
+moveAppRoute.get('/violation_article',require('./violation_article/getUserslike_article'))
 // 文章分类
 moveAppRoute.get('/article_type',require("./article_type/getArticle_type"))
 // 检验用户的token是否有效
-// moveAppRoute.use(require('./token'))
-
+moveAppRoute.use(require('./token'))
+moveAppRoute.get('/attentionArticle',require('./attentionArticle'))
 moveAppRoute.get('/loginout',require('./users/loginout'))
 
 // 操作用户表
@@ -31,9 +34,7 @@ moveAppRoute.delete('/attention', require('./attention/deleteAttention'))
 moveAppRoute.post('/black', require('./blacklist/addAttention'))
 moveAppRoute.delete('/black', require('./blacklist/deleteAttention'))
 
-// 粉丝
-moveAppRoute.post('/fans', require('./fans/addFans'))
-moveAppRoute.delete('/fans', require('./fans/deleteFans'))
+
 //文章
 moveAppRoute.post('/article',require('./article/addArticle'))
 moveAppRoute.delete('/article',require('./article/deleteArticle'))
@@ -45,6 +46,7 @@ moveAppRoute.delete('/unlike_article',require('./usersunlike_article/deleteUsers
 
 // 举报文章
 moveAppRoute.post('/violation_article',require('./violation_article/addUserslike_article'))
+moveAppRoute.delete('/violation_article',require('./violation_article/deleteUserslike_article'))
 
 
 

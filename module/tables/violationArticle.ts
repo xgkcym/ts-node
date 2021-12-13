@@ -11,10 +11,10 @@ export class Violation_articleClass {
   uid: string | undefined
   article_id: string | undefined
 
-  constructor(info: Violation_articleType) {
-    this.uid = info.uid
-    this.article_id = info.article_id
-    this.id = info.id
+  constructor(info?: Violation_articleType) {
+    this.uid = info?.uid
+    this.article_id = info?.article_id
+    this.id = info?.id
   }
 }
 export const Violation_articleModel = new MysqlClass<Violation_articleClass>('violation_article')
